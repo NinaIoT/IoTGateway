@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">IotGateway</string>
+    <string name="connect_server">connect mqtt server</string>
+    <string name="publishing">publishing</string>
+    <string name="publish_message">publish message</string>
+    <string name="topic_text">create topic</string>
+</resources>
