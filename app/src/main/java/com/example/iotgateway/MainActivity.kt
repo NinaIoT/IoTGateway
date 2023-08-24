@@ -7,13 +7,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-/*import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.FirebaseDatabase*/
+import com.google.firebase.ktx.Firebase
 import info.mqtt.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions
 import org.eclipse.paho.client.mqttv3.IMqttActionListener
@@ -41,12 +41,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var mqttclient: MqttAndroidClient
 
     //firebase realtime db
-    //private lateinit var database: FirebaseDatabase
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //initDatabase()
+        initDatabase()
         initUI()
     }
 
@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity() {
                 IMqttMessageListener { topic, message -> // message Arrived!
                     Log.d(TAG_DEBUG, ("Message: " + topic + " : " + "${message}"))
 
-                    //writeDatabase(topic, "${message}")
+                    writeDatabase(topic, "${message}")
                 })
         } catch (ex: MqttException) {
             System.err.println("Exception whilst subscribing")
@@ -171,17 +171,17 @@ class MainActivity : AppCompatActivity() {
         //mqttclient.publish(TOPIC_PUB, MqttMessage(message.toByteArray()))
         mqttclient.publish(topic, MqttMessage(message.toByteArray()))
 
-        //writeDatabase()
+        writeDatabase()
     }
 
-   /* private fun initDatabase() {
+    private fun initDatabase() {
         database = Firebase.database
 
     }
 
     private fun writeDatabase() {
         val myRef = database.getReference("message")
-        myRef.setValue("Hello, World!")
+        myRef.setValue("Hello, Nina!")
     }
 
     private fun writeDatabase(topic:String, message:String) {
@@ -207,5 +207,5 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG_DEBUG, "Failed to read value.", error.toException())
             }
         })
-    }*/
+    }
 }
